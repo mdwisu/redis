@@ -35,6 +35,9 @@ setrange dwi 4 "ahmad"
 get dwi //muhaahmaddwi susanto
 getrange dwi 0 3 //muha
 
+<!-- length -->
+strlen dwi
+
 <!--! mget mset | multiple data string -->
 
 mset budi "100" dwi "300" ruly "200"
