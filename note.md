@@ -70,3 +70,10 @@ discard //batalkan
 
 <!-- monitor -->
 monitor
+
+<!-- server information -->
+info
+config get databases
+config get save
+config get bind
+config get port
