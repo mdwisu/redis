@@ -56,6 +56,8 @@ incr counter
 decr counter
 incrby counter 5
 decrby counter 2
+set pi 3.14
+incrbyfloat pi 0.0001
 
 <!--! flush | mengosongkan data di db -->
 
