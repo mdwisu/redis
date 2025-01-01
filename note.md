@@ -39,3 +39,8 @@ incr counter
 decr counter
 incrby counter 5
 decrby counter 2
+
+<!-- flush | mengosongkan data di db -->
+flushdb
+flushall
+
