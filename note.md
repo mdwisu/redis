@@ -8,6 +8,8 @@ docker exec -it redis-stack bash
 redis-cli
 docker exec -it redis-stack redis-cli
 
+ctrl + shift + v //untuk paste
+
 ping
 select 0
 docker exec -it redis-stack redis-cli
@@ -77,3 +79,8 @@ config get databases
 config get save
 config get bind
 config get port
+
+<!-- client connection -->
+client list 
+client id
+client kill ip:port
