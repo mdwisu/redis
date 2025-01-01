@@ -53,3 +53,13 @@ flushall
 docker exec -it redis-stack redis-cli -h host -p port -n database --pipe < input-file
 docker exec -it redis-stack redis-cli -h 127.0.0.1 -p 6379 -n 0 --pipe < /app/input-file.txt
 cat ${PWD}/app/input-file.txt | docker exec -i redis-stack redis-cli -h 127.0.0.1 -p 6379 -n 0 --pipe
+
+<!-- transaction / multi -->
+
+multi
+set apple "Apple"
+get apple
+set samsung "samsung"
+set xiaomi "xiaomi"
+exec //eksekusi
+discard //batalkan
