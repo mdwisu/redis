@@ -25,3 +25,9 @@ getrange dwi 0 3 //muha
 <!-- mget mset | multiple data string -->
 mset budi "100" dwi "300" ruly "200"
 mget dwi budi ruly
+
+<!-- expiration -->
+expire dwi 5 //detik
+ttl dwi
+get dwi
+setex dwi 10 "muhammad dwi susanto"
