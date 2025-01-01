@@ -100,3 +100,5 @@ user dwi on +@all ~\* >rahasia
 auth dwi rahasia
 
 <!-- persistence -->
+<!-- RDB dan AOF -->
+<!-- --save dan --appendonly -->
