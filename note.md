@@ -1,6 +1,10 @@
 c:\laragon\bin\redis\redis-x64-5.0.14.1
 
-docker run -d --rm --name redis-stack -p 6379:6379 -p 8001:8001 -v ${PWD}\app:/app -v ${PWD}\local-data\:/data -v ${PWD}\redis.conf:/redis-stack.conf -e REDIS_ARGS="--save 60 1000 --appendonly yes" redis/redis-stack:latest
+docker run -d --rm --name redis-stack -p 6379:6379 -p 8001:8001 -v ${PWD}\app:/app -v ${PWD}\local-data\:/data -v ${PWD}\redis.conf:/redis-stack.conf -e REDIS_ARGS="--save 3600 1 300 100 60 10000 --appendonly yes" redis/redis-stack:latest
+<!-- --save 3600 1 300 100 60 10000 | penyimpanan dengan rdb 1jam 1data 5menit 60data 60detik 10000 -->
+<!-- --appendonly yes | penyimpanan dengan AOF -->
+
+<!-- jika membuat confignya di redis.conf otomatis REDIS_ARGSnya tertimpa, tetapi jika di filenya tidak di set, otomatis menggunakan yang di REDIS_ARGS -->
 
 docker container stop redis-stack
 
@@ -71,9 +75,11 @@ exec //eksekusi
 discard //batalkan
 
 <!-- monitor -->
+
 monitor
 
 <!-- server information -->
+
 info
 config get databases
 config get save
@@ -81,6 +87,16 @@ config get bind
 config get port
 
 <!-- client connection -->
-client list 
+
+client list
 client id
 client kill ip:port
+
+<!-- security -->
+<!-- tambahkan di redis.conf -->
+
+user default on +@connection
+user dwi on +@all ~\* >rahasia
+auth dwi rahasia
+
+<!-- persistence -->
