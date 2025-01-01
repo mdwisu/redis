@@ -25,7 +25,7 @@ exists tidakada
 append test "ganteng"
 keys _
 keys te_
-keys \*
+keys *
 del test
 
 <!--! get-range -->
@@ -127,3 +127,17 @@ volatile-lru: Evict the least recently used keys that have the expire field set 
 volatile-lfu: Evict the least frequently used keys that have the expire field set to true.
 volatile-random: Evict keys at random only if they have the expire field set to true.
 volatile-ttl: Evict keys with the expire field set to true that have the shortest remaining time-to-live (TTL) value. -->
+
+<!-- lists -->
+lpush country India
+lpush country Indonesia
+lpush country UK
+lrange country 0 -1
+lrange country 0 0
+rpush country Australia
+llen country
+lpop country
+rpop country
+lset country 0 indonibos
+linsert country before India Australia
+linsert country after Australia USA
