@@ -4,6 +4,10 @@ docker run -d --rm --name redis-stack -p 6379:6379 -p 8001:8001 -v ${PWD}\app:/a
 
 docker container stop redis-stack
 
+docker exec -it redis-stack bash
+redis-cli
+docker exec -it redis-stack redis-cli
+
 ping
 select 0
 docker exec -it redis-stack redis-cli
@@ -63,3 +67,6 @@ set samsung "samsung"
 set xiaomi "xiaomi"
 exec //eksekusi
 discard //batalkan
+
+<!-- monitor -->
+monitor
