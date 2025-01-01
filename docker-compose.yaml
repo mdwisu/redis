@@ -1,0 +1,28 @@
+services:
+  redis:
+    build: .
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - redis-network
+    command: ["redis-server", "/app/redis.conf"]
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          # ignore:
+          #   - node_modules/
+        - action: rebuild
+          path: redis.conf
+
+networks:
+  redis-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
