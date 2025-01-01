@@ -1,0 +1,4 @@
+set dwi "muhammad dwi susanto"
+set budi "budi"
+set joko "jokowi"
+set ruly "rules"
