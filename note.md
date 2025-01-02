@@ -141,3 +141,18 @@ rpop country
 lset country 0 indonibos
 linsert country before India Australia
 linsert country after Australia USA
+
+<!-- lpushx, rpushx -->
+<!-- Jika daftar yang dituju tidak ada, LPUSHX tidak akan melakukan apa-apa dan tidak akan membuat daftar baru. -->
+lpushx movies Avengers
+lpushx country "south africa"
+rpushx movies Avengers
+
+<!-- sort -->
+sort country ALPHA
+sort country desc ALPHA
+
+<!-- blpop -->
+<!-- menunggu 15 detik jika datanya tidak ada -->
+blpop movies 15
+blpop country 15 
