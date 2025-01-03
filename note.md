@@ -80,6 +80,11 @@ set xiaomi "xiaomi"
 exec //eksekusi
 discard //batalkan
 
+watch apple //WATCH digunakan untuk memastikan bahwa kunci yang diawasi tidak berubah selama proses transaksi.
+multi
+get apple
+exec
+<!-- Jika kunci apple diubah oleh klien lain setelah WATCH saldo, maka EXEC akan gagal. -->
 <!-- !monitor -->
 
 monitor
