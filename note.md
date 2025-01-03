@@ -212,3 +212,19 @@ pfcount hll2
 pfcount hll1 hll2
 pfmerge mergedhll hll hll2
 pfcount mergedhll
+
+<!-- hashes -->
+hset myhash name Dwi //set
+hset myhash email dwisusanto784@gmail.com
+hkeys myhash // keys
+hvals myhash // value
+hexists myhash name //existing
+hlen myhash // length
+hset myhash age 23 //set hash
+hmset myhash country India Phone 08101010 //multiple
+hmget myhash name email Phone // get value
+hincrby myhash age 2 //increment
+hincrbyfloat myhash age 1.5
+hdel myhash age //delete
+hstrlen myhash name // panjang value
+hsetnx myhash name susanto // set jika name tidak ada, jika ada tidak di set
