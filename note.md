@@ -185,3 +185,20 @@ sinterstore newinter technology frontend
 sunion technology frontend newset newinter
 <!-- store -->
 sunionstore newunion technology frontend newset newinter
+
+<!-- ! redis sorted sets -->
+zadd users 1 Dwi //add
+zadd users 2 Muhammad 3 Susanto 4 Alex 5 Suca
+zrange users 0 -1
+zrange users 0 -1 withscores //melihat data dengan no scorenya
+zrevrange users 0 -1 withscores //reverse
+zrevrangebyscore users 4 0 withscores
+zcard users // hitung banyak set
+zcount users -inf +inf
+zcount users 0 4
+zrem users Alex //remove
+zscore users Suca //ada di no berapa (5)
+zincrby users 2 Dwi //menambah nilai scorenya
+zincrby users -2 Dwi
+zremrangebyscore users 3 6 // remove by range
+zremrangebyrank users 1 2
