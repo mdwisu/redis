@@ -202,3 +202,13 @@ zincrby users 2 Dwi //menambah nilai scorenya
 zincrby users -2 Dwi
 zremrangebyscore users 3 6 // remove by range
 zremrangebyrank users 1 2
+
+<!-- hyperLogLog -->
+pfadd hll a
+pfadd hll b c d e f g
+pfcount hll
+pfadd hll2 1 2 3 4 5 6 7
+pfcount hll2
+pfcount hll1 hll2
+pfmerge mergedhll hll hll2
+pfcount mergedhll
