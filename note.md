@@ -156,3 +156,32 @@ sort country desc ALPHA
 <!-- menunggu 15 detik jika datanya tidak ada -->
 blpop movies 15
 blpop country 15 
+
+<!-- !set --> //gabakal duplicate
+<!-- add key and value -->
+sadd technology java
+sadd technology redis nodejs aws
+sadd frontend inifrontend
+<!-- melihat datanya -->
+smembers technology
+smembers frontend
+<!-- menghitung lengthnya -->
+scard technology
+<!-- melihat apakah java ada di dalamnya -->
+sismember technology java
+sismember technology spring
+<!-- perbedaan misal mengecek teknologi, jika datanya ada di frontend maka tidak di tampilkan  -->
+<!-- technology: java sprint frontend: java | output: spring -->
+sdiff technology frontend
+sdiff frontend technology
+<!-- menyimpan different ke newset -->
+sdiffstore newset technology frontend
+<!-- sinter | kebalikan different -->
+sinter technology frontend
+sinter technology frontend newset
+<!-- menyimpan internya -->
+sinterstore newinter technology frontend
+<!-- sunion | semua datanya -->
+sunion technology frontend newset newinter
+<!-- store -->
+sunionstore newunion technology frontend newset newinter
