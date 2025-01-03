@@ -85,6 +85,7 @@ multi
 get apple
 exec
 <!-- Jika kunci apple diubah oleh klien lain setelah WATCH saldo, maka EXEC akan gagal. -->
+unwatch
 <!-- !monitor -->
 
 monitor
@@ -233,3 +234,28 @@ hincrbyfloat myhash age 1.5
 hdel myhash age //delete
 hstrlen myhash name // panjang value
 hsetnx myhash name susanto // set jika name tidak ada, jika ada tidak di set
+
+<!-- !pubsub -->
+<!-- terminal1 -->
+subscribe news
+<!-- terminal2 -->
+subscribe news
+<!-- terminal3 -->
+publish news "New Breaking News"
+publish news "New News"
+<!-- terminal2 -->
+subscribe news broadcast
+<!-- ternimal3 -->
+publish broadcast "ini broadcast"
+
+<!-- ?psubscribe -->
+<!-- terminal1 -->
+psubscribe news* h?llo b[ai]ll
+<!-- terminal3 -->
+publish news_afd hello
+publish hxllo hxloo
+publish ball hallo
+publish bill hallo
+
+pubsub channels
+pubsub numpat //mendapatkan jumlah pola aktif yang saat ini sedang digunakan dalam fitur publish/subscribe (pub/sub) Redis.
