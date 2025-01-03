@@ -209,7 +209,7 @@ zincrby users -2 Dwi
 zremrangebyscore users 3 6 // remove by range
 zremrangebyrank users 1 2
 
-<!-- hyperLogLog -->
+<!--! hyperLogLog -->
 pfadd hll a
 pfadd hll b c d e f g
 pfcount hll
@@ -219,7 +219,7 @@ pfcount hll1 hll2
 pfmerge mergedhll hll hll2
 pfcount mergedhll
 
-<!-- hashes -->
+<!-- !hashes -->
 hset myhash name Dwi //set
 hset myhash email dwisusanto784@gmail.com
 hkeys myhash // keys
@@ -259,3 +259,22 @@ publish bill hallo
 
 pubsub channels
 pubsub numpat //mendapatkan jumlah pola aktif yang saat ini sedang digunakan dalam fitur publish/subscribe (pub/sub) Redis.
+
+<!-- !redis scripts -->
+<!-- set name dwi -->
+eval "redis.call('set', KEYS[1], ARGV[1])" 1 name Dwi
+get name
+mset name Susanto last_name Muhammad
+eval "redis.call('mset', KEYS[1], ARGV[1], KEYS[2], ARGV[2])" 2 name last_name Susanto Muhammad
+get name
+get last_name
+
+hmset country_cap indonesia jakarta italy rome japan tokyo russia moscow usa "washington d c" india "new delhi"
+zadd country 1 usa 2 italy 3 india
+eval "local order = redis.call('zrange', KEYS[1], 0, -1); return redis.call('hmget', KEYS[2], unpack(order));" 2 country country_cap
+
+script load "local order = redis.call('zrange', KEYS[1], 0, -1); return redis.call('hmget', KEYS[2], unpack(order));"
+evalsha 1807412636f2f95da7f3cdf6cb3bb0249e2587c7 2 country country_cap
+
+script exists 1807412636f2f95da7f3cdf6cb3bb0249e2587c7
+script flush
