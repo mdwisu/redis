@@ -359,3 +359,15 @@ GEORADIUS maps 26.653738 16.839917 1000000 mi withcoord
 GEORADIUSBYMEMBER maps zimbabwe 5000 km
 GEORADIUSBYMEMBER maps zimbabwe 5000 km desc | asc
 
+<!-- redis benchmark -->
+docker exec -it redis-stack redis-cli -h 127.0.0.1 -p 6379
+<!-- -n  jumlah total permintaan yang akan dikirim ke server Redis -->
+docker exec -it redis-stack redis-benchmark -n 1000
+<!-- -a auth -->
+docker exec -it redis-stack redis-benchmark -n 1000 -a redis-stack
+<!-- -d Menentukan ukuran data yang akan dikirim dalam setiap permintaan (dalam byte).
+100000 byte (sekitar 100 KB) untuk setiap data yang diuji. -->
+docker exec -it redis-stack redis-benchmark -n 1000 -d 100000 -a redis-stack
+<!-- -c Menentukan jumlah koneksi klien (clients) yang akan digunakan secara bersamaan (concurrent connections). -->
+docker exec -it redis-stack redis-benchmark -n 1000 -d 100000 -c 200 -a redis-stack
+
