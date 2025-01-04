@@ -125,6 +125,7 @@ auth dwi rahasia
 --requirepass redis-stack //hanya password saja yang di isi
 
 <!-- terminal -->
+
 config set requirepass redis-stack
 
 <!-- !persistence -->
@@ -327,3 +328,34 @@ evalsha 1807412636f2f95da7f3cdf6cb3bb0249e2587c7 2 country country_cap
 
 script exists 1807412636f2f95da7f3cdf6cb3bb0249e2587c7
 script flush
+
+<!-- redis geospatial -->
+
+```
+Perbedaan Format:
+Google Maps: indonesia
+Latitude, Longitude → -0.24747319093377876, 113.30968039831485
+Redis GEOADD: indonesia
+Longitude, Latitude → 113.30968039831485 -0.24747319093377876
+```
+
+GEOADD maps 72.859493 24.85925 dwi
+GEOADD maps 72.859493 24.85925 susanto
+GEOADD maps 26.653738 16.839917 ahmad
+GEOADD maps 23.002039692866255 78.68513508563122 india
+GEOADD maps -18.69131883830992 29.08342413786517 zimbabwe
+GEOADD maps -0.24747319093377876 113.30968039831485 indonesia
+zrange maps 0 -1
+GEOHASH maps dwi
+http://geohash.org/
+GEOPOS maps dwi
+GEODIST maps dwi ahmad //jarak antara 2
+GEODIST maps dwi ahmad km
+GEODIST maps dwi ahmad mi
+GEODIST maps dwi ahmad m
+GEORADIUS maps 26.653738 16.839917 10 km //menemukan orang dalam jarak 10km
+GEORADIUS maps 26.653738 16.839917 1000000 mi
+GEORADIUS maps 26.653738 16.839917 1000000 mi withcoord
+GEORADIUSBYMEMBER maps zimbabwe 5000 km
+GEORADIUSBYMEMBER maps zimbabwe 5000 km desc | asc
+
