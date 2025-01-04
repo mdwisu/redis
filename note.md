@@ -25,7 +25,7 @@ exists tidakada
 append test "ganteng"
 keys _
 keys te_
-keys *
+keys \*
 del test
 
 <!--! get-range -->
@@ -36,6 +36,7 @@ get dwi //muhaahmaddwi susanto
 getrange dwi 0 3 //muha
 
 <!-- length -->
+
 strlen dwi
 
 <!--! mget mset | multiple data string -->
@@ -84,8 +85,11 @@ watch apple //WATCH digunakan untuk memastikan bahwa kunci yang diawasi tidak be
 multi
 get apple
 exec
+
 <!-- Jika kunci apple diubah oleh klien lain setelah WATCH saldo, maka EXEC akan gagal. -->
+
 unwatch
+
 <!-- !monitor -->
 
 monitor
@@ -102,20 +106,26 @@ config get port
 
 client list
 client id
-client kill ip:port
+client kill <ip:port>
+client setname dwi
+client getname
 
 <!--! security -->
 <!-- tambahkan di redis.conf -->
+<!-- dengan user -->
+
+```bash
+user default on +@connection
+user dwi on +@all ~\* >rahasia
+auth dwi rahasia
+```
 
 <!-- dengan args -->
 
 --requirepass redis-stack //hanya password saja yang di isi
 
-<!-- dengan user -->
-
-user default on +@connection
-user dwi on +@all ~\* >rahasia
-auth dwi rahasia
+<!-- terminal -->
+config set requirepass redis-stack
 
 <!-- !persistence -->
 <!-- RDB dan AOF -->
@@ -135,6 +145,7 @@ volatile-random: Evict keys at random only if they have the expire field set to 
 volatile-ttl: Evict keys with the expire field set to true that have the shortest remaining time-to-live (TTL) value. -->
 
 <!-- lists -->
+
 lpush country India
 lpush country Indonesia
 lpush country UK
@@ -150,49 +161,72 @@ linsert country after Australia USA
 
 <!-- lpushx, rpushx -->
 <!-- Jika daftar yang dituju tidak ada, LPUSHX tidak akan melakukan apa-apa dan tidak akan membuat daftar baru. -->
+
 lpushx movies Avengers
 lpushx country "south africa"
 rpushx movies Avengers
 
 <!-- sort -->
+
 sort country ALPHA
 sort country desc ALPHA
 
 <!-- blpop -->
 <!-- menunggu 15 detik jika datanya tidak ada -->
+
 blpop movies 15
-blpop country 15 
+blpop country 15
 
 <!-- !set --> //gabakal duplicate
 <!-- add key and value -->
+
 sadd technology java
 sadd technology redis nodejs aws
 sadd frontend inifrontend
+
 <!-- melihat datanya -->
+
 smembers technology
 smembers frontend
+
 <!-- menghitung lengthnya -->
+
 scard technology
+
 <!-- melihat apakah java ada di dalamnya -->
+
 sismember technology java
 sismember technology spring
+
 <!-- perbedaan misal mengecek teknologi, jika datanya ada di frontend maka tidak di tampilkan  -->
 <!-- technology: java sprint frontend: java | output: spring -->
+
 sdiff technology frontend
 sdiff frontend technology
+
 <!-- menyimpan different ke newset -->
+
 sdiffstore newset technology frontend
+
 <!-- sinter | kebalikan different -->
+
 sinter technology frontend
 sinter technology frontend newset
+
 <!-- menyimpan internya -->
+
 sinterstore newinter technology frontend
+
 <!-- sunion | semua datanya -->
+
 sunion technology frontend newset newinter
+
 <!-- store -->
+
 sunionstore newunion technology frontend newset newinter
 
 <!-- ! redis sorted sets -->
+
 zadd users 1 Dwi //add
 zadd users 2 Muhammad 3 Susanto 4 Alex 5 Suca
 zrange users 0 -1
@@ -210,6 +244,7 @@ zremrangebyscore users 3 6 // remove by range
 zremrangebyrank users 1 2
 
 <!--! hyperLogLog -->
+
 pfadd hll a
 pfadd hll b c d e f g
 pfcount hll
@@ -220,6 +255,7 @@ pfmerge mergedhll hll hll2
 pfcount mergedhll
 
 <!-- !hashes -->
+
 hset myhash name Dwi //set
 hset myhash email dwisusanto784@gmail.com
 hkeys myhash // keys
@@ -237,21 +273,33 @@ hsetnx myhash name susanto // set jika name tidak ada, jika ada tidak di set
 
 <!-- !pubsub -->
 <!-- terminal1 -->
+
 subscribe news
+
 <!-- terminal2 -->
+
 subscribe news
+
 <!-- terminal3 -->
+
 publish news "New Breaking News"
 publish news "New News"
+
 <!-- terminal2 -->
+
 subscribe news broadcast
+
 <!-- ternimal3 -->
+
 publish broadcast "ini broadcast"
 
 <!-- ?psubscribe -->
 <!-- terminal1 -->
-psubscribe news* h?llo b[ai]ll
+
+psubscribe news\* h?llo b[ai]ll
+
 <!-- terminal3 -->
+
 publish news_afd hello
 publish hxllo hxloo
 publish ball hallo
@@ -262,6 +310,7 @@ pubsub numpat //mendapatkan jumlah pola aktif yang saat ini sedang digunakan dal
 
 <!-- !redis scripts -->
 <!-- set name dwi -->
+
 eval "redis.call('set', KEYS[1], ARGV[1])" 1 name Dwi
 get name
 mset name Susanto last_name Muhammad
